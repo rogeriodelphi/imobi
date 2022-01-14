@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 def cadastro(request):
     if request.method == "GET":
@@ -12,7 +13,18 @@ def cadastro(request):
         if len(username.strip()) == 0 or len(email.strip()) == 0 or len(senha.strip()) == 0:
             return redirect('/auth/cadastro')
 
-        return HttpResponse(f'{username} {senha}')
+        user = User.objects.filter(username=username)
+        if user.exists():
+            return redirect('/auth/cadastro')
+        try:
+            user = User(username=username,
+                        email=email,
+                        password=senha)
+            user.save()
+            return redirect('/auth/logar')
+        except:
+            return redirect('auth/cadastro')
+        return HttpResponse(f'{username} {email} {senha}')
 
 def logar(request):
     return HttpResponse('Logar')
