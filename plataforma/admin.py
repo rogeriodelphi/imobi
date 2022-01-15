@@ -8,7 +8,6 @@ class ImoveiAdmin(admin.ModelAdmin):
     list_editable = ('valor', 'tipo')
     list_filter = ('cidade', 'tipo')
 
-
 admin.site.register(DiasVisita)
 admin.site.register(Horario)
 admin.site.register(Imagem)
