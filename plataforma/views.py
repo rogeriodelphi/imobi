@@ -19,11 +19,14 @@ def home(request):
             preco_maximo = 999999999
         if not tipo:
             tipo = ['A', 'C']
-
         imoveis = Imovei.objects.filter(valor__gte=preco_minimo) \
             .filter(valor__lte=preco_maximo) \
             .filter(tipo_imovel__in=tipo).filter(cidade=cidade)
     else:
         imoveis = Imovei.objects.all()
-
     return render(request, 'home.html', {'imoveis': imoveis, 'cidades': cidades})
+
+def imovel(request, id):
+    imovel = get_object_or_404(Imovei, id=id)
+    sugestoes = Imovei.objects.filter(cidade=imovel.cidade).exclude(id=id)[:2]
+    return render(request, 'imovel.html', {'imovel': imovel, 'sugestoes': sugestoes, 'id': id})
