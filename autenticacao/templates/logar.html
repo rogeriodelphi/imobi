@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
 {% block 'head' %}
     <link rel="stylesheet" href="{% static 'autenticacao/css/cadastro.css' %}">
 {% endblock %}
 
-{% block 'titulo' %}Cadastre-se{% endblock %}
+{% block 'titulo' %}Logar{% endblock %}
+
 {% block 'body' %}
     <div class="container-fluid">
         <div class="row">
@@ -16,41 +19,36 @@
                 </div>
                 <div class="corpo_sidebar">
                     <div>
-                        <h2 class="titulo cor_branca">Cadastre-se</h2>
+                        <h2 class="titulo cor_branca">Logar</h2>
                     </div>
-
                     <div>
                         <p class="cor_branca descricao">As melhores casas</p>
                         <p style="margin-top:-20px" class="cor_branca descricao">Nos melhores preços</p>
                         <br>
                         <br>
-                        <a class="btn_logar" href="{% url 'logar' %}">LOGAR</a>
+                        <a class="btn_logar" href="{% url 'cadastro' %}">Cadastre-se</a>
                     </div>
-
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="area_cadastrar">
-                    <form action="{% url 'cadastro' %}" method="POST">
-                        {% csrf_token %}
-                        <h2 class="titulo_area_cadastrar">Cadastre-se</h2>
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert {{message.tags}}">
-                                    {{message}}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                        <br>
-                        <input name="username" class="input_cadastrar input_cadastrar_nome" type="text" placeholder="Username...">
-                        <br>
-                        <br>
-                        <input name="email" class="input_cadastrar input_cadastrar_email" type="text" placeholder="Email...">
+                    <h2 class="titulo_area_cadastrar">Logar</h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {{message.tags}}">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <br>
+                    <br>
+                    <form method="POST" action="{% url 'logar' %}">{% csrf_token %}
+                        <input name="username" class="input_cadastrar input_cadastrar_email" type="text" placeholder="Username...">
                         <br>
                         <br>
                         <input name="senha" class="input_cadastrar input_cadastrar_senha" type="password" placeholder="Senha...">
                         <br>
-                        <input class="btn_cadastrar" type="submit" value="Cadastrar">
+                        <input class="btn_cadastrar" type="submit" value="Logar">
                     </form>
                 </div>
             </div>
